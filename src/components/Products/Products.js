@@ -1,13 +1,12 @@
 import React from 'react'
 import './Products.css'
-import {productsArr} from '../../data/data.js'
 import Product from '../Product/Product'
-import { allProductsCategoryString } from '../FilterBy/FilterBy'
+import { allProductsCategoryString } from '../../App'
 
-const Products = ({productType}) => {
-  let filteredProductsArr = productType === allProductsCategoryString
+const Products = ({productsArr, currentCategory}) => {
+  let filteredProductsArr = currentCategory === allProductsCategoryString
     ? productsArr
-    : productsArr.filter((item) => item.category === productType);
+    : productsArr.filter((item) => item.category === currentCategory);
 
   return (
     <section className='products'>
