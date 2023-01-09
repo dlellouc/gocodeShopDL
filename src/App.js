@@ -3,7 +3,7 @@ import './App.css';
 import Nav from './components/Nav/Nav';
 import Products from './components/Products/Products';
 import Spinner from './components/Spinner/Spinner'
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {productsArr} from './data/data'
 
 export const allProductsCategoryString = 'All products';
@@ -15,20 +15,22 @@ function App() {
   let productsCategoriesWithAll = [...new Set(productsArr.map((item) => item.category))];
   productsCategoriesWithAll.unshift(allProductsCategoryString);
 
-  const onFilterChange = (newCategory) => {
-    setCategory(newCategory);
-
-    if (newCategory === allProductsCategoryString) {
+  const onFilterChange = () => {
+    if (category === allProductsCategoryString) {
       setProducts(productsArr);
     } else {
-      setProducts(productsArr.filter((item) => item.category === newCategory));
+      setProducts(productsArr.filter((item) => item.category === category));
     }
   }
+
+  useEffect(
+    () => onFilterChange(),
+    [category])
   
 
   return (
     <div className="App">
-      <Nav productsCategoriesWithAll={productsCategoriesWithAll} currentCategory={category} onFilterChange={(newCategory) => onFilterChange(newCategory)} />
+      <Nav productsCategoriesWithAll={productsCategoriesWithAll} currentCategory={category} onFilterChange={(newCategory) => setCategory(newCategory)} />
       <Products products={products} />
     </div>
   );
