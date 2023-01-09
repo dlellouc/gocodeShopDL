@@ -3,12 +3,12 @@ import FilterBy from '../FilterBy/FilterBy'
 import SortBy from '../SortBy/SortBy'
 import './Nav.css'
 
-const Nav = ({productsCategoriesWithAll, currentCategory, onFilterChange}) => {
+const Nav = ({productsCategoriesWithAll, currentCategory, setCategory}) => {
   return (
     <nav className='product-filter'>
       <h1>{currentCategory}</h1>
       <div className='sort'>
-        <FilterBy productsCategoriesWithAll={productsCategoriesWithAll} onFilterChange={(newCategory) => onFilterChange(newCategory)} />
+        <FilterBy productsCategoriesWithAll={productsCategoriesWithAll} setCategory={setCategory} />
         <SortBy />        
       </div>
     </nav>

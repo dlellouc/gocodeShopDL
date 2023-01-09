@@ -30,7 +30,7 @@ function App() {
 
   return (
     <div className="App">
-      <Nav productsCategoriesWithAll={productsCategoriesWithAll} currentCategory={category} onFilterChange={(newCategory) => setCategory(newCategory)} />
+      <Nav productsCategoriesWithAll={productsCategoriesWithAll} currentCategory={category} setCategory={setCategory} />
       <Products products={products} />
     </div>
   );
