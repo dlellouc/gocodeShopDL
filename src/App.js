@@ -4,35 +4,61 @@ import Nav from './components/Nav/Nav';
 import Products from './components/Products/Products';
 import Spinner from './components/Spinner/Spinner'
 import {useState, useEffect} from 'react';
-import {productsArr} from './data/data'
+// import {productsArr} from './data/data'
+// import Clock from './components/Clock/Clock';
+import { useClock } from './hooks/useClock';
+// import MyContext from './MyContext';
 
 export const allProductsCategoryString = 'All products';
 
 function App() {
-  const [category, setCategory] = useState(allProductsCategoryString);
-  const [products, setProducts] = useState(productsArr);
+  const [currentCategory, setCurrentCategory] = useState(allProductsCategoryString);
+  const [allProducts, setAllProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  let productsCategoriesWithAll = [...new Set(productsArr.map((item) => item.category))];
-  productsCategoriesWithAll.unshift(allProductsCategoryString);
+  let productsCategoriesWithAll = [...new Set(allProducts.map((item) => item.category))]; // categories update after fetch
+  productsCategoriesWithAll.unshift(allProductsCategoryString);  
+
+  const getAllProducts = async () => {
+    try {
+      const response = await fetch('https://fakestoreapi.com/products');
+      const data = await response.json();
+      setAllProducts(data);
+      setProducts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    // onload
+    getAllProducts();
+  }, []);
 
   const onFilterChange = () => {
-    if (category === allProductsCategoryString) {
-      setProducts(productsArr);
+    if (currentCategory === allProductsCategoryString) {
+      setProducts(allProducts);
     } else {
-      setProducts(productsArr.filter((item) => item.category === category));
+      setProducts(allProducts.filter((item) => item.category === currentCategory));
     }
   }
 
   useEffect(
     () => onFilterChange(),
-    [category])
+    [currentCategory]);
   
+  const clock = useClock();
 
   return (
-    <div className="App">
-      <Nav productsCategoriesWithAll={productsCategoriesWithAll} currentCategory={category} setCategory={setCategory} />
-      <Products products={products} />
-    </div>
+    // <MyContext.Provider value={{productsArr}}>
+      <div className="App">
+        {/* <Clock /> */}
+        <h1 style={{color:'blue', textAlign:'right', marginTop:'20px'}}>{clock}</h1>
+        <Nav productsCategoriesWithAll={productsCategoriesWithAll} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
+        {allProducts && <Products products={products} />}
+        {allProducts.length === 0 && <Spinner />}
+      </div>
+    // </MyContext.Provider>
   );
 
 }
