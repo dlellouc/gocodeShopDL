@@ -8,7 +8,8 @@ import {useState, useEffect} from 'react';
 // import Clock from './components/Clock/Clock';
 import { useClock } from './hooks/useClock';
 // import { useFetchAll } from './hooks/useFetchAll';
-// import MyContext from './MyContext';
+import MyContext from './MyContext';
+import { useNavigate } from 'react-router-dom';
 
 export const allProductsCategoryString = 'All products';
 
@@ -55,11 +56,21 @@ function App() {
   useEffect(
     () => onFilterChange(),
     [currentCategory]);
+
+  const addToCart = () => {
+
+  }
+
+  const removeFromCart = () => {
+    
+  }
   
   const clock = useClock();
 
+  const navigate = useNavigate();
+
   return (
-    // <MyContext.Provider value={{productsArr}}>
+    // <MyContext.Provider value={{products, cart:{}, addToCart, removeFromCart}}>
       <div className="App">
         {/* <Clock /> */}
         <h1 style={{color:'blue', textAlign:'right', marginTop:'20px'}}>{clock}</h1>
@@ -71,6 +82,8 @@ function App() {
         <Nav productsCategoriesWithAll={productsCategoriesWithAll} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
         {allProducts && <Products products={products} />}
         {allProducts.length === 0 && <Spinner />}
+
+        <button onClick={() => {navigate("about")}}>go to about</button>
       </div>
     // </MyContext.Provider>
   );
