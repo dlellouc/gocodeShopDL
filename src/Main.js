@@ -24,12 +24,12 @@ function Main() {
                 </Routes>
             :
                 <Routes>    // component
-                <Route path="/" element={<App />} />
-                <Route path="products/:productId" element={<SingleProductView />} />
-                <Route path="about" element={<AboutPage />} />
-                {isAdmin && <Route path="about/about2" element={<Spinner />} /> }
-                <Route path="termsOfAgreement" element={<Spinner />} />
-                <Route path="*" element={<NotFound />} />
+                    <Route path="/" element={<App />} />
+                    <Route path="products/:productId" element={<SingleProductView />} />
+                    <Route path="about" element={<AboutPage />} />
+                    {isAdmin && <Route path="about/about2" element={<Spinner />} /> }
+                    <Route path="termsOfAgreement" element={<Spinner />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             }
             <footer>this is my footer</footer>
