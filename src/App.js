@@ -11,6 +11,9 @@ import { useClock } from './hooks/useClock';
 import MyContext from './MyContext';
 import { useNavigate } from 'react-router-dom';
 import Cart from './components/Cart/Cart';
+// import { Button, Drawer } from "@mui/material";
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
 
 export const allProductsCategoryString = 'All products';
 
@@ -20,6 +23,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [showCookies, setShowCookies] = useState(true);
   const [cart, setCart] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false)
 
   useEffect(
     () => console.log('showCookies', showCookies),
@@ -127,7 +131,11 @@ function App() {
           && <p style={{color:'blue'}}>This app may use cookies to improve your experience. </p> }
         <button onClick={() => setShowCookies(!showCookies)}> {showCookies && 'I have understood'} {!showCookies && 'Show cookies information'}</button>
         
-        {/* <Drawer from MaterialUI></Drawer> */}
+        <Button onClick={() => setCartOpen(true)}>open drawer</Button>
+        <Drawer anchor={"left"} open={cartOpen} onClose={() => setCartOpen(false)}>
+          <div>shalom from the drawer</div>
+        </Drawer>
+
         <Nav productsCategoriesWithAll={productsCategoriesWithAll} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
         {allProducts && <Products products={products} />}
         {allProducts.length === 0 && <Spinner />}
