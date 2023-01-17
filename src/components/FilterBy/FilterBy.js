@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import MyContext from '../../MyContext'
 import './FilterBy.css'
 
-const FilterBy = ({productsCategoriesWithAll, setCurrentCategory}) => {
+const FilterBy = () => {
+  const { productsCategoriesWithAll, setCurrentCategory } = useContext(MyContext);
+
   return (
     <div className='collection-sort'>
       <label>Filter by:</label>
