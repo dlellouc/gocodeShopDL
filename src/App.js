@@ -63,7 +63,7 @@ function App() {
     () => onFilterChange(),
     [currentCategory]);
 
-  const addToCart = (productId, productTitle, productPrice) => {
+  const addToCart = (productId, productTitle, productPrice, productImgSrc) => {
     let productIndexInCart = getProductIndexInCart(productId);
 
     if (productIndexInCart !== -1) {
@@ -74,7 +74,7 @@ function App() {
         ...cart.slice(productIndexInCart+1)]);
 
     } else {
-      setCart([...cart, {id: productId, title: productTitle, price: productPrice, amount: 1}]);
+      setCart([...cart, {id: productId, title: productTitle, price: productPrice, imgSrc: productImgSrc, amount: 1}]);
     }
   }
 
@@ -131,16 +131,14 @@ function App() {
           && <p style={{color:'blue'}}>This app may use cookies to improve your experience. </p> }
         <button onClick={() => setShowCookies(!showCookies)}> {showCookies && 'I have understood'} {!showCookies && 'Show cookies information'}</button>
         
-        <Button onClick={() => setCartOpen(true)}>open drawer</Button>
+        <Button onClick={() => setCartOpen(true)}>My Cart</Button>
         <Drawer anchor={"left"} open={cartOpen} onClose={() => setCartOpen(false)}>
-          <div>shalom from the drawer</div>
+          <Cart />
         </Drawer>
 
         <Nav productsCategoriesWithAll={productsCategoriesWithAll} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
-        {allProducts && <Products products={products} />}
+        {allProducts && <Products />}
         {allProducts.length === 0 && <Spinner />}
-
-        <Cart />
 
         <button onClick={() => {navigate("about")}}>go to about</button>
       </div>

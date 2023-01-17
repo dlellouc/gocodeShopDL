@@ -18,7 +18,7 @@ const Product = ({productId, productTitle, productImgSrc, productPrice}) => {
                 <div style={{display:'inline-flex'}}>
                     <button onClick={() => removeFromCart(productId)} disabled={productAmountInCart === 0}>-</button>
                     <h5 style={{padding:'5px'}}>{productAmountInCart}</h5>
-                    <button onClick={() => addToCart(productId, productTitle, productPrice)}>+</button>
+                    <button onClick={() => addToCart(productId, productTitle, productPrice, productImgSrc)}>+</button>
                 </div>
             </div>
         </div>

@@ -1,8 +1,11 @@
 import React from 'react'
 import './Products.css'
 import Product from '../Product/Product'
+import {useContext} from 'react';
+import MyContext from '../../MyContext';
 
-const Products = ({products}) => {
+const Products = () => {
+  const { products } = useContext(MyContext);
 
   return (
     <section className='products'>
