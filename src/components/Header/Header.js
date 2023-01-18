@@ -1,13 +1,65 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import MyContext from '../../MyContext';
+
+// import Clock from './components/Clock/Clock';
+import { useClock } from '../../hooks/useClock';
+
+import Cart from '../Cart/Cart';
+
+// import { Button, Drawer } from "@mui/material";
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+
+import './Header.css'
 
 export const Header = () => {
+  const { cartOpen, setCartOpen } = useContext(MyContext);
+  const [showCookies, setShowCookies] = useState(true);
+  const clock = useClock();
+
+  useEffect(
+      () => console.log('showCookies', showCookies),
+      [showCookies])
+  
+
   return (
-    <div>
-        <Link to={"/"}>Home     </Link>
-        <Link to={"about"}>About    </Link>
-        <Link to={"about/about2"}>About2    </Link>
-        <Link to={"termsOfAgreement"}>Terms</Link>
+    <div className='header'>
+      <div className='header-top'>
+        <div className='header-links-div'>
+          <Link to={"/"}>Home     </Link>
+          <Link to={"about"}>About    </Link>
+          {/* <Link to={"about/about2"}>About2    </Link>
+          <Link to={"termsOfAgreement"}>Terms</Link> */}
+        </div>
+
+        <div className='header-cart-button-div'>
+          <Button onClick={() => setCartOpen(true)}>My Cart</Button>
+          <Drawer anchor={"left"} open={cartOpen} onClose={() => setCartOpen(false)} PaperProps={{sx: {width: 500}}}>
+            <Cart />
+          </Drawer>
+        </div>
+
+        <div className='header-clock-div'>
+          {/* <Clock /> */}
+          <h1 style={{textAlign:'right'}}>{clock}</h1>
+        </div>
+
+      </div>
+      
+      <div className='cookies-div'>
+        {showCookies 
+          && <p>This app may use cookies to improve your experience. </p> }
+      
+        <button onClick={() => setShowCookies(!showCookies)}> 
+          {showCookies && 'I have understood'} {!showCookies && 'Show cookies information'}
+        </button>
+      </div>
+
+      <div>
+
+      </div>
+
     </div>
   )
 }
