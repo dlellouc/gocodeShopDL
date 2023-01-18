@@ -1,18 +1,15 @@
 
 import {useState, useEffect} from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 // import MyContext from './MyContext';
 import UserContext from './contexts/UserContext';
 import ProductsContext from './contexts/ProductsContext';
 import CartContext from './contexts/CartContext';
 
-import Spinner from './components/Spinner/Spinner';
-import NotFound from './views/NotFound';
-import AboutPage from './views/AboutPage';
-import SingleProductView from './views/SingleProductView';
-import App from './App';
 import { Header } from './components/Header/Header';
+import RoutesAnonymous from './components/Routes/RoutesAnonymous';
+import RoutesAuthenticated from './components/Routes/RoutesAuthenticated';
 
 export const allProductsCategoryString = 'All products';
 
@@ -122,54 +119,23 @@ function Main() {
 
     return (
       <BrowserRouter>
-        <UserContext.Provider value={{isAuthenticated, isAdmin}}>
+        <UserContext.Provider value={{isAuthenticated, setIsAuthenticated, isAdmin, setIsAdmin}}>
           <ProductsContext.Provider value={{products, allProducts, productsCategoriesWithAll, currentCategory, setCurrentCategory}}>
             <CartContext.Provider value={{cart, setCart, addToCart, removeFromCart, getAmountInCart, cartOpen, setCartOpen}}>
 
-            <Header>this is my header</Header>
+              <Header />
 
-{!isAuthenticated ?
-    <Routes>    // component
-        <Route path="/" element={<div>login</div>} />
-        <Route path="signup" element={<div>sign up</div>} />
-    </Routes>
-:
-    <Routes>    // component
-        <Route path="/" element={<App />} />
-        <Route path="products/:productId" element={<SingleProductView />} />
-        <Route path="about" element={<AboutPage />} />
-        {/* {isAdmin && <Route path="about/about2" element={<Spinner />} /> } */}
-        {/* <Route path="termsOfAgreement" element={<Spinner />} /> */}
-        <Route path="*" element={<NotFound />} />
-    </Routes>
-}
-<footer>this is my footer</footer>
+              {!isAuthenticated ?
+                <RoutesAnonymous />
+                :
+                <RoutesAuthenticated />
+              }
 
+              <footer>this is my footer</footer>
 
             </CartContext.Provider>
           </ProductsContext.Provider>
         </UserContext.Provider>
-        {/* <MyContext.Provider value={{products, allProducts, productsCategoriesWithAll, currentCategory, setCurrentCategory, cart, setCart, addToCart, removeFromCart, getAmountInCart, cartOpen, setCartOpen}}>
-          
-            <Header>this is my header</Header>
-
-            {!isAuthenticated ?
-                <Routes>    // component
-                    <Route path="/" element={<div>login</div>} />
-                    <Route path="signup" element={<div>sign up</div>} />
-                </Routes>
-            :
-                <Routes>    // component
-                    <Route path="/" element={<App />} />
-                    <Route path="products/:productId" element={<SingleProductView />} />
-                    <Route path="about" element={<AboutPage />} />
-                    {/* {isAdmin && <Route path="about/about2" element={<Spinner />} /> } */}
-                    {/* <Route path="termsOfAgreement" element={<Spinner />} /> */}
-                    {/* <Route path="*" element={<NotFound />} />
-                </Routes>
-            }
-            <footer>this is my footer</footer>
-        </MyContext.Provider> */}
       </BrowserRouter>
       );
 }

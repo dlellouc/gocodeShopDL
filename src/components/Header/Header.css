@@ -9,11 +9,11 @@
     margin: 20px;
 }
 
-a, h1 {
+/* a, h1 {
     color: var(--header-primary-color, indigo);
     font-size: 1.3em;
     font-weight: 500;
-}
+} */
 
 .header-top {
     display: grid;
@@ -30,6 +30,10 @@ a, h1 {
 .header-links-div > a {
     padding-right: 20px;
     text-decoration: none;
+
+    color: var(--header-primary-color, indigo);
+    font-size: 1.3em;
+    font-weight: 500;
 }
 
 .header-cart-div {
@@ -38,6 +42,12 @@ a, h1 {
 
 .header-clock-div {
     grid-area: clock;
+}
+
+.header-clock-div > h1 {
+    color: var(--header-primary-color, indigo);
+    font-size: 1.3em;
+    font-weight: 500;
 }
 
 .header-bottom {
