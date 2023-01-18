@@ -1,9 +1,10 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import App from '../../App'
-import AboutPage from '../../views/AboutPage'
-import SingleProductView from '../../views/SingleProductView'
-import NotFound from '../../views/NotFound'
+import App from '../App'
+import SingleProductView from '../views/SingleProductView'
+import AboutPage from '../views/AboutPage'
+import NotFound from '../views/NotFound'
+
 
 const RoutesAuthenticated = () => {
   return (

@@ -28,6 +28,30 @@ const SingleProductView = () => {
       getOneProduct(productId);
     }, []);
 
+
+    // function to get query from path
+    const getQueryFromPath = (path) => {
+      let query = {};
+      let questionMarkIndex = path.indexOf('?');
+
+      if (questionMarkIndex !== -1) {
+        let queryString = path.slice(questionMarkIndex + 1);
+        let queryArray = queryString.split('&');
+        queryArray.forEach((element) => {
+          let elementArray = element.split('=');
+          query[elementArray[0]] = elementArray[1];
+       })
+      }
+
+      return query;
+    }
+
+    let path = window.location.search;    // starts with '?'
+    // let path = 'http://localhost:3000/about?a=5&b=7&c=8&abcdefghi=9578324878&user=youAreTheBestUserEver';
+    // let path = '12345'
+    let queryFromPath = getQueryFromPath(path);
+    console.log('path : ', path, ', query : ', queryFromPath);
+
   return (
     <div>
 

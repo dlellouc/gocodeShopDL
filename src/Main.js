@@ -8,8 +8,8 @@ import ProductsContext from './contexts/ProductsContext';
 import CartContext from './contexts/CartContext';
 
 import { Header } from './components/Header/Header';
-import RoutesAnonymous from './components/Routes/RoutesAnonymous';
-import RoutesAuthenticated from './components/Routes/RoutesAuthenticated';
+import RoutesAnonymous from './routes/RoutesAnonymous';
+import RoutesAuthenticated from './routes/RoutesAuthenticated';
 
 export const allProductsCategoryString = 'All products';
 
