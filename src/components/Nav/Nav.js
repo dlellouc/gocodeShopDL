@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import MyContext from '../../MyContext'
+import ProductsContext from '../../contexts/ProductsContext'
 import FilterBy from '../FilterBy/FilterBy'
 import SortBy from '../SortBy/SortBy'
 import './Nav.css'
 
 const Nav = () => {
-    const { currentCategory } = useContext(MyContext);
+    const { currentCategory } = useContext(ProductsContext);
 
   return (
     <nav className='product-filter'>

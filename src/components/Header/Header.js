@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import MyContext from '../../MyContext';
+import CartContext from '../../contexts/CartContext';
 
 // import Clock from './components/Clock/Clock';
 import { useClock } from '../../hooks/useClock';
@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import './Header.css'
 
 export const Header = () => {
-  const { cartOpen, setCartOpen } = useContext(MyContext);
+  const { cartOpen, setCartOpen } = useContext(CartContext);
   const [showCookies, setShowCookies] = useState(true);
   const clock = useClock();
 

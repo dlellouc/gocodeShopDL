@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import MyContext from '../../MyContext'
+import CartContext from '../../contexts/CartContext';
 import './Cart.css'
 
 const Cart = () => {
-    const { cart } = useContext(MyContext);
+    const { cart } = useContext(CartContext);
 
     let totalPrice = cart.length !== 0 ? cart.reduce((partialSum, item) => partialSum + item.price * item.amount, 0) : 0;
 

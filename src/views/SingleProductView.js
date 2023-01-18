@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Spinner from '../components/Spinner/Spinner';
-import MyContext from '../MyContext';
+import CartContext from '../contexts/CartContext';
 import './SingleProductView.css'
 
 const SingleProductView = () => {
@@ -9,7 +9,7 @@ const SingleProductView = () => {
     let productId = params.productId;
     const [item, setItem] = useState({});
 
-    const { addToCart, removeFromCart, getAmountInCart } = useContext(MyContext);
+    const { addToCart, removeFromCart, getAmountInCart } = useContext(CartContext);
     const productAmountInCart = getAmountInCart(productId);
 
     const getOneProduct = async (productId) => {

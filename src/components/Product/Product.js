@@ -1,11 +1,11 @@
 import React from 'react'
 import './Product.css'
 import {useContext} from 'react';
-import MyContext from '../../MyContext';
 import { Link } from 'react-router-dom';
+import CartContext from '../../contexts/CartContext';
 
 const Product = ({productId, productTitle, productImgSrc, productPrice}) => {
-    const { addToCart, removeFromCart, getAmountInCart } = useContext(MyContext);
+    const { addToCart, removeFromCart, getAmountInCart } = useContext(CartContext);
     const productAmountInCart = getAmountInCart(productId);
 
     return (

@@ -2,10 +2,10 @@ import React from 'react'
 import './Products.css'
 import Product from '../Product/Product'
 import {useContext} from 'react';
-import MyContext from '../../MyContext';
+import ProductsContext from '../../contexts/ProductsContext';
 
 const Products = () => {
-  const { products } = useContext(MyContext);
+  const { products } = useContext(ProductsContext);
 
   return (
     <section className='products'>
