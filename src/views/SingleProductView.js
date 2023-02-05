@@ -4,6 +4,8 @@ import Spinner from '../components/Spinner/Spinner';
 import CartContext from '../contexts/CartContext';
 import './SingleProductView.css'
 
+import { BASE_URL } from '../const/config.js'
+
 const SingleProductView = () => {
     const params = useParams();
     let productId = params.productId;
@@ -14,7 +16,8 @@ const SingleProductView = () => {
 
     const getOneProduct = async (productId) => {
       try {
-        const response = await fetch('https://fakestoreapi.com/products/' + productId);
+        // const response = await fetch('https://fakestoreapi.com/products/' + productId);  // before mongoose
+        const response = await fetch(BASE_URL + '/api/products/getProduct/' + productId);
         const data = await response.json();
         setItem(data);
 

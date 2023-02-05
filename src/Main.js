@@ -11,6 +11,9 @@ import { Header } from './components/Header/Header';
 import RoutesAnonymous from './routes/RoutesAnonymous';
 import RoutesAuthenticated from './routes/RoutesAuthenticated';
 
+import { BASE_URL } from './const/config.js'
+
+
 export const allProductsCategoryString = 'All products';
 
 function Main() {
@@ -19,20 +22,25 @@ function Main() {
     const [isAdmin, setIsAdmin] = useState(false);
     
     // products context
-    const [currentCategory, setCurrentCategory] = useState(allProductsCategoryString);
     const [allProducts, setAllProducts] = useState([]);
     const [products, setProducts] = useState([]);
+    const [currentCategory, setCurrentCategory] = useState(allProductsCategoryString);
+    const [priceObj, setPriceObj] = 
+      useState({minPrice: undefined, chosenMinPrice:undefined, chosenMaxPrice:undefined, maxPrice:undefined});
+    
 
     // cart context
     const [cart, setCart] = useState([]);
     const [cartOpen, setCartOpen] = useState(false)
+
   
     let productsCategoriesWithAll = [...new Set(allProducts.map((item) => item.category))]; // categories update after fetch
     productsCategoriesWithAll.unshift(allProductsCategoryString);  
   
     const getAllProducts = async () => {
       try {
-        const response = await fetch('https://fakestoreapi.com/products');
+        // const response = await fetch('https://fakestoreapi.com/products');   // before mongoose
+        const response = await fetch(BASE_URL + '/api/products/getAllProducts');
         const data = await response.json();
         setAllProducts(data);
         setProducts(data);
@@ -120,7 +128,7 @@ function Main() {
     return (
       <BrowserRouter>
         <UserContext.Provider value={{isAuthenticated, setIsAuthenticated, isAdmin, setIsAdmin}}>
-          <ProductsContext.Provider value={{products, allProducts, productsCategoriesWithAll, currentCategory, setCurrentCategory}}>
+          <ProductsContext.Provider value={{products, allProducts, productsCategoriesWithAll, currentCategory, setCurrentCategory, priceObj, setPriceObj}}>
             <CartContext.Provider value={{cart, setCart, addToCart, removeFromCart, getAmountInCart, cartOpen, setCartOpen}}>
 
               <Header />
