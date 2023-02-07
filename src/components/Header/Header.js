@@ -12,8 +12,10 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 
 import './Header.css'
+import UserContext from '../../contexts/UserContext';
 
 export const Header = () => {
+  const { isAdmin } = useContext(UserContext);
   const { cartOpen, setCartOpen } = useContext(CartContext);
   const [showCookies, setShowCookies] = useState(true);
   const clock = useClock();
@@ -31,6 +33,7 @@ export const Header = () => {
           <Link to={"about"}>About    </Link>
           {/* <Link to={"about/about2"}>About2    </Link>
           <Link to={"termsOfAgreement"}>Terms</Link> */}
+          {isAdmin && <Link to={"admin/allProducts"}>ProductsTable    </Link>}
         </div>
 
         <div className='header-cart-button-div'>

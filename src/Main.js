@@ -19,7 +19,7 @@ export const allProductsCategoryString = 'All products';
 function Main() {
     // user context
     const [isAuthenticated, setIsAuthenticated] = useState(true);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(true);
     
     // products context
     const [allProducts, setAllProducts] = useState([]);
