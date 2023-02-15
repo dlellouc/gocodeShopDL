@@ -11,13 +11,13 @@ import { BASE_URL } from '../../const/config.js'
 
 const ProductsTable = () => {
     const { allProducts, getAllProducts } = useContext(ProductsContext);
-    const [rows, setRows] = useState((allProducts.map((item, index) => {
-        return { id:index, productId:item._id, title:item.title, // id = rowId is needed by mui DataGrid
-                price:item.price, category:item.category, description:item.description, image:item.image,
-                isNew: false}
-    })));
-    // setRowsFromProducts();
+    const [rows, setRows] = useState([]);
     const [addingProduct, setAddingProduct] = useState(false);
+
+    useEffect(() =>
+    {setRowsFromProducts()}
+    ,[allProducts]
+    )
 
     useEffect(() =>
     {console.log('rows useEffect ', rows)}
@@ -32,22 +32,22 @@ const ProductsTable = () => {
         // console.log(addingProduct, rows)
     }
 
-    const findRowIndex = (productId) => (rows.findIndex((item) => item.productId === productId));
+    // const findRowIndex = (productId) => (rows.findIndex((item) => item.productId === productId));
 
-    const updateRowsAfterPost = (postedProduct) => {
-        let postedProductRow = {id:rows.length-1, productId:postedProduct._id, title:postedProduct.title, // id = rowId
-                    price:postedProduct.price, category:postedProduct.category, description:postedProduct.description, image:postedProduct.image,
-                    isNew: false, isChanged:false};
-        let firstPart = rows.slice(0, rows.length-1);
-        setRows([...firstPart, postedProductRow]);
-    }
+    // const updateRowsAfterPost = (postedProduct) => {     // in postNewProductFromTable
+    //     let postedProductRow = {id:rows.length-1, productId:postedProduct._id, title:postedProduct.title, // id = rowId
+    //                 price:postedProduct.price, category:postedProduct.category, description:postedProduct.description, image:postedProduct.image,
+    //                 isNew: false, isChanged:false};
+    //     let firstPart = rows.slice(0, rows.length-1);
+    //     setRows([...firstPart, postedProductRow]);
+    // }
 
-    const deleteRow = (productId) => {
-        let rowIndex = findRowIndex(productId);
-        let firstPart = rows.slice(0, rowIndex)
-        let secondPart = rows.slice(rowIndex+1)
-        setRows([...firstPart, ...secondPart])
-    }
+    // const deleteRow = (productId) => {                   // in deleteProductFromTable
+    //     let rowIndex = findRowIndex(productId);
+    //     let firstPart = rows.slice(0, rowIndex)
+    //     let secondPart = rows.slice(rowIndex+1)
+    //     setRows([...firstPart, ...secondPart])
+    // }
 
     const setRowsFromProducts = () => {             // updating rows from allProducts
         setRows(allProducts.map((item, index) => {
@@ -79,8 +79,7 @@ const ProductsTable = () => {
             // console.log(responseJSON)
 
             getAllProducts();
-            // updateRowsAfterPost(responseJSON);
-            setRowsFromProducts();
+            // useEffect for rows update
             setAddingProduct(false);
 
         } catch(error) {
@@ -120,7 +119,6 @@ const ProductsTable = () => {
                 });
 
             getAllProducts();
-            // updateRow(productId);
 
             } catch(error) {
                 alert(error);
@@ -142,18 +140,14 @@ const ProductsTable = () => {
             });
 
             getAllProducts();
-            // deleteRow(productId);
-            setRowsFromProducts();
+            // useEffect for ros update
 
         } catch(error) {
             alert(error);
         }
     }
 
-    if (allProducts.length !== 0) {
-        // setRowsFromProducts();
-        // console.log('all products', allProducts)
-        // console.log('rows', rows)
+    if (rows.length !== 0) {
 
         const columns = [
             // { field: 'id', headerName: 'rowId', width: 150 },
@@ -185,7 +179,7 @@ const ProductsTable = () => {
             <div style={{height:"100vh"}}>ProductsTable
                 <button onClick={() => addRow()} disabled={addingProduct}>+</button>
                 <DataGrid
-                    experimentalFeatures={{ newEditingApi: true }}
+                    // experimentalFeatures={{ newEditingApi: true }}
                     // loading={'loading'}
                     rows={rows}
                     columns={columns}
