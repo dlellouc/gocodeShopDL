@@ -128,7 +128,7 @@ function Main() {
     return (
       <BrowserRouter>
         <UserContext.Provider value={{isAuthenticated, setIsAuthenticated, isAdmin, setIsAdmin}}>
-          <ProductsContext.Provider value={{products, allProducts, productsCategoriesWithAll, currentCategory, setCurrentCategory, priceObj, setPriceObj}}>
+          <ProductsContext.Provider value={{products, allProducts, getAllProducts, productsCategoriesWithAll, currentCategory, setCurrentCategory, priceObj, setPriceObj}}>
             <CartContext.Provider value={{cart, setCart, addToCart, removeFromCart, getAmountInCart, cartOpen, setCartOpen}}>
 
               <Header />
